@@ -29,12 +29,15 @@ namespace Les1Ex1
         public MainWindow()
         {
             InitializeComponent();
-            Thread f = new Thread(PrintFibonacci);
             sleepTime = Convert.ToInt32(tbTaimer.Text);
             count = Convert.ToInt32(tbLength.Text);
-            f.Start();
+            Thread thread = new Thread(PrintFibonacci);
+            thread.Start();
+            //thread.Abort();
+            //System.PlatformNotSupportedException: "Thread abort is not supported on this platform."
 
         }
+
         public void PrintFibonacci()
         {
             int n = 1;
