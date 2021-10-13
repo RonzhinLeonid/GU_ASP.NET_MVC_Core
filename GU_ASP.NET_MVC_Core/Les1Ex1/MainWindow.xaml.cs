@@ -35,7 +35,6 @@ namespace Les1Ex1
             thread.Start();
             //thread.Abort();
             //System.PlatformNotSupportedException: "Thread abort is not supported on this platform."
-
         }
 
         public void PrintFibonacci()
