@@ -39,9 +39,9 @@ namespace Les1Ex1
 
         public void PrintFibonacci()
         {
-            int n = 1;
             lock (lockObject)
             {
+                int n = 1;
                 while (n <= count)
                 {
                     Thread.Sleep(sleepTime);
