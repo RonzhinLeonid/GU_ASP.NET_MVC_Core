@@ -15,11 +15,9 @@ namespace Les5
         static void Main(string[] args)
         {
             IScannerDevice device = new Scanner();
-            //IScannerDevice device = null;
             IScanOutputStrategy strategyPdf = new PdfScanOutputStrategy();
             IScanOutputStrategy strategyImage = new ImageScanOutputStrategy();
             ILogger logger = LogManager.GetCurrentClassLogger();
-            //ILogger logger = null;
 
             var context = new ScannerContext(device, logger);
             context.SetupOutputScanStrategy(strategyPdf);
