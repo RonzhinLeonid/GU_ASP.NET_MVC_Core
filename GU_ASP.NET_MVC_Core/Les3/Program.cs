@@ -6,15 +6,16 @@ namespace Les3
     {
         static void Main(string[] args)
         {
-            var figure = new FigureFactories().CreateCircle(5);
+            var factories = new FigureFactories();
+            var figure = factories.CreateCircle(5);
             new WorkerService().CalculateSquare(figure);
             Console.WriteLine(figure.Square);
 
-            figure = new FigureFactories().CreateRectangle(5, 6);
+            figure = factories.CreateRectangle(5, 6);
             new WorkerService().CalculateSquare(figure);
             Console.WriteLine(figure.Square);
 
-            figure = new FigureFactories().CreateTriangle(3, 4, 5);
+            figure = factories.CreateTriangle(3, 4, 5);
             new WorkerService().CalculateSquare(figure);
             Console.WriteLine(figure.Square);
 
