@@ -8,7 +8,7 @@ using NLog;
 
 namespace ScanStrategy
 {
-    public sealed class ScannerContext
+    public sealed class ScannerContext : IScannerContext
     {
         private readonly IScannerDevice _device;
         private IScanOutputStrategy _currentStrategy;
@@ -47,5 +47,11 @@ namespace ScanStrategy
             _logger?.Info($"Запуск метода ScanAndSave с использованием стратегии: {_currentStrategy.GetType().Name}");
             _currentStrategy.ScanAndSave(_device, outputFileName, _logger);
         }
+    }
+
+    public interface IScannerContext
+    {
+        void SetupOutputScanStrategy(IScanOutputStrategy strategy);
+        void Execute(string outputFileName);
     }
 }
