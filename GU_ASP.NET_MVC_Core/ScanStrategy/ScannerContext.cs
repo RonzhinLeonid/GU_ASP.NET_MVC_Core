@@ -10,7 +10,7 @@ namespace ScanStrategy
 {
     public sealed class ScannerContext : IScannerContext
     {
-        private readonly IScannerDevice _device;
+        private IScannerDevice _device;
         private IScanOutputStrategy _currentStrategy;
         private readonly ILogger _logger;
 
@@ -47,10 +47,17 @@ namespace ScanStrategy
             _logger?.Info($"Запуск метода ScanAndSave с использованием стратегии: {_currentStrategy.GetType().Name}");
             _currentStrategy.ScanAndSave(_device, outputFileName, _logger);
         }
+
+        public void SetupDevice(IScannerDevice device)
+        {
+            _device = device;
+            _logger?.Info($"Задан девайс {_device.GetType().Name}");
+        }
     }
 
     public interface IScannerContext
     {
+        void SetupDevice(IScannerDevice device);
         void SetupOutputScanStrategy(IScanOutputStrategy strategy);
         void Execute(string outputFileName);
     }

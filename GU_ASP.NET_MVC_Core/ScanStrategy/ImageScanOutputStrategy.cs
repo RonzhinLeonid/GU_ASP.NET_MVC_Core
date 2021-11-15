@@ -15,6 +15,7 @@ namespace ScanStrategy
     {
         public void ScanAndSave(IScannerDevice scannerDevice, string outputFileName, ILogger logger = null)
         {
+            outputFileName = outputFileName + ".bmp";
             string value = "";
             var rectangle = new Rectangle(0, 0, 500, 400);
             Bitmap bmpImage = new Bitmap(500, 400, PixelFormat.Format24bppRgb);

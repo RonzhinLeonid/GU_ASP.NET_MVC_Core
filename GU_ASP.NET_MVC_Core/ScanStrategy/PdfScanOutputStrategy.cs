@@ -13,6 +13,7 @@ namespace ScanStrategy
     {
         public void ScanAndSave(IScannerDevice scannerDevice, string outputFileName, ILogger logger = null)
         {
+            outputFileName = outputFileName + ".pdf";
             string value = "";
             var document = new Document(PageSize.A4, 20, 20, 30, 20);
 

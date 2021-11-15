@@ -15,47 +15,25 @@ namespace Les5
     {
         static void Main(string[] args)
         {
-            //.Keyed<IScannerContext>(typeof(IScanOutputStrategy))
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<Scanner>().As<IScannerDevice>().SingleInstance();
+            builder.RegisterType<ScannerContext>().As<IScannerContext>();
+
+            //Геннадий, добрый день, подскажите как правильно передать нужную стратегию в метод SetupOutputScanStrategy()? 
             builder.RegisterType<PdfScanOutputStrategy>().As<IScanOutputStrategy>().SingleInstance();
             builder.RegisterType<ImageScanOutputStrategy>().As<IScanOutputStrategy>().SingleInstance();
 
-            builder.RegisterType<Scanner>().As<IScannerDevice>().SingleInstance();
-
-            builder.RegisterType<ScannerContext>().As<IScannerContext>();
-
             IContainer container = builder.Build();
 
-            var service1 = container.Resolve<IScannerContext>();
+            var device = container.Resolve<IScannerDevice>();
+            var context = container.Resolve<IScannerContext>();
+            context.SetupOutputScanStrategy(container.Resolve<IScanOutputStrategy>());
+            context.SetupDevice(device);
+            context.Execute("test");
 
-
-
-            IScannerDevice device = new Scanner();
-            IScanOutputStrategy strategyPdf = new PdfScanOutputStrategy();
-            IScanOutputStrategy strategyImage = new ImageScanOutputStrategy();
+            //И вопрос по логеру, у меня взят стандартный NLog, как его правильно передать в мой context, или лучше его в контексте создавать? 
             ILogger logger = LogManager.GetCurrentClassLogger();
-
-            var context = new ScannerContext(device, logger);
-            context.SetupOutputScanStrategy(strategyPdf);
-            context.Execute("test.pdf");
-
-            context.SetupOutputScanStrategy(strategyImage);
-            context.Execute("test.bmp");
-
-            context = new ScannerContext(device);
-            context.SetupOutputScanStrategy(strategyPdf);
-            context.Execute("test.pdf");
-
-            context.SetupOutputScanStrategy(strategyImage);
-            context.Execute("test.bmp");
-
-            context = new ScannerContext(null, logger);
-            context.SetupOutputScanStrategy(strategyPdf);
-            context.Execute("test.pdf");
-
-            context.SetupOutputScanStrategy(strategyImage);
-            context.Execute("test.bmp");
         }
     }
 }
