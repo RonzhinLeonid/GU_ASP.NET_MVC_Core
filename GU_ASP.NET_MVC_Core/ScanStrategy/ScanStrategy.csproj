@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\Леонид\.nuget\packages\nlog.config\4.7.12\contentFiles\any\any\NLog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.2" />
+    <PackageReference Include="NLog" Version="4.7.12" />
+    <PackageReference Include="NLog.Config" Version="4.7.12" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScannerDevice\ScannerDevice.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.Config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
