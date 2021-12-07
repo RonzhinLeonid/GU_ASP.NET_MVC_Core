@@ -41,11 +41,11 @@ namespace ScanStrategy
             }
             if (string.IsNullOrWhiteSpace(outputFileName))
             {
-                _logger?.Info("Имя файла было сгенерировано");
                 outputFileName = Guid.NewGuid().ToString();
+                _logger?.Info("Имя файла было сгенерировано");
             }
-            _logger?.Info($"Запуск метода ScanAndSave с использованием стратегии: {_currentStrategy.GetType().Name}");
             _currentStrategy.ScanAndSave(_device, outputFileName, _logger);
+            _logger?.Info($"Запуск метода ScanAndSave с использованием стратегии: {_currentStrategy.GetType().Name}");
         }
     }
 }

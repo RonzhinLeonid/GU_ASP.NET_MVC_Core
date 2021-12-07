@@ -18,14 +18,21 @@ namespace ScanStrategy
 
             if (File.Exists(outputFileName))
             {
-                logger?.Info($"Файл с именем {outputFileName} существует и был удален");
-                File.Delete(outputFileName);
+                try
+                {
+                    File.Delete(outputFileName);
+                    logger?.Info($"Файл с именем {outputFileName} существует и был удален");
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    logger?.Error($"Файл с именем {outputFileName} удалить не удалось");
+                }
             }
 
             using (var reader = new StreamReader(scannerDevice.Scan(), Encoding.UTF8))
             {
-                logger?.Info($"Получен Stream от сканера");
                 value = reader.ReadToEnd();
+                logger?.Info($"Получен Stream от сканера");
             }
 
             using (var writer = PdfWriter.GetInstance(document, new FileStream(outputFileName, FileMode.Create)))
@@ -34,7 +41,6 @@ namespace ScanStrategy
                 document.NewPage();
                 document.Add(new Paragraph(value));
                 document.Close();
-                writer.Close();
                 logger?.Info($"Результат сохранен в {outputFileName}");
             }
         }

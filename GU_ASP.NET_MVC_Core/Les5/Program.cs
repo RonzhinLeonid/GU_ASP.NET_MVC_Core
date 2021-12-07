@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic;
+﻿//using Microsoft.VisualBasic;
 using NLog;
 using ScannerDevice;
 using ScanStrategy;
