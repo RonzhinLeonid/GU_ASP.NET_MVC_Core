@@ -6,7 +6,10 @@ namespace Les7
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var rowTable = new Generator(35).RowTable;
+            var workPlaceTable = new WorkPlaceTable(rowTable);
+            ReportService reportService = new ReportService();
+            reportService.GenerateReport(workPlaceTable);
         }
     }
 }
